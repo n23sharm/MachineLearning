@@ -39,6 +39,22 @@ grad = zeros(size(theta));
 
 
 
+h = sigmoid(X*theta);
+
+a = (y .* -1)' * log(h);
+b = (1 - y)' * log(1 - h);
+
+unregularizedCost = (a - b) / m;
+theta(1) = 0;
+
+regularizedCost = ((lambda/(2*m)) * (theta'*theta));
+
+J = unregularizedCost + regularizedCost;
+
+unregularizedGrad = (X' * (h - y))/m;
+regularizedGrad = (lambda/m) * theta;
+
+grad = unregularizedGrad + regularizedGrad;
 
 
 
