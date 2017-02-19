@@ -62,12 +62,40 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+%forward propagation
+a1 = [ones(m, 1) X];
+
+z2 = a1 * Theta1';
+a2 = sigmoid(z2);
+a2 = [ones(size(a2, 1), 1) a2];
+
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
+
+y_matrix = eye(num_labels)(y,:);
+
+%cost
+J_reg = - (1/m) * sum(sum(y_matrix .* log(a3) + ((1 .- y_matrix) .* log(1 .- a3))));
+regularization = lambda / (2 * m) * [sum(sum(Theta1(:, 2:end).^2)) + sum(sum(Theta2(:, 2:end).^2))];
+J = J_reg + regularization;
+
+%backpropagation
+
+d3 = a3 - y_matrix;
+
+d2 = (d3 * Theta2(:, 2:end)) .* sigmoidGradient(z2);
+
+Delta1 = d2' * a1;
+Delta2 = d3' * a2;
+
+Theta1(:,1) = 0;
+Theta2(:,1) = 0;
+
+Theta1_grad = (1/m) * Delta1 + (lambda/m) * Theta1;
+Theta2_grad = (1/m) * Delta2 + (lambda/m) * Theta2;
 
 
-
-
-
-
+	
 
 
 
