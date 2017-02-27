@@ -15,8 +15,9 @@ X_poly = zeros(numel(X), p);
 %
 % 
 
+p_vector = 1: p;
 
-
+X_poly = bsxfun(@power, X, p_vector);
 
 
 

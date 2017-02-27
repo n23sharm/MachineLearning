@@ -20,14 +20,17 @@ grad = zeros(size(theta));
 %
 
 
+h = X * theta;
+errors = h - y;
 
+% Regularization
+theta(1) = 0;
+regularization_cost = (lambda / (2 * m)) * sum(theta.^2);
+regularization_grad = (lambda / m) * theta;
 
+J = sum(errors.^2) / (2 * m) + regularization_cost;
 
-
-
-
-
-
+grad = X' * errors/m + regularization_grad;
 
 
 % =========================================================================
