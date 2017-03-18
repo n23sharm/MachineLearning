@@ -21,11 +21,29 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+size = size(X, 1);
+for i = 1:size
 
+	% calculate the distance between this x and all centroids
+	% assign the index of the min distance 
 
+	currentX = X(i, :);
+	minDistance = Inf;
 
+	for k = 1:K
 
+		currentCentroid = centroids(k, :);
+		diff = currentX - currentCentroid;
 
+		distance = dot(diff, diff);
+
+		if (distance < minDistance) 
+			minDistance = distance;
+			idx(i) = k;
+		end;
+		
+	end
+end
 
 % =============================================================
 
